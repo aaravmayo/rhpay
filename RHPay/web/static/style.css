@@ -1,0 +1,146 @@
+/* Custom CSS for Family Pay Application */
+
+/* Global Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Balance Display */
+.balance-display {
+    background-color: #e9ecef;
+    border-radius: 8px;
+    padding: 10px 16px;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.balance-label {
+    font-weight: 600;
+    margin-right: 8px;
+    color: #495057;
+}
+
+.balance-amount {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #198754;
+}
+
+/* Cards */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    border-radius: 10px 10px 0 0 !important;
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background-color: #198754;
+    border-color: #198754;
+}
+
+.btn-success:hover {
+    background-color: #157347;
+    border-color: #146c43;
+    transform: translateY(-2px);
+}
+
+/* Feature boxes on homepage */
+.feature-box {
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    height: 100%;
+    transition: transform 0.2s ease;
+}
+
+.feature-box:hover {
+    transform: translateY(-5px);
+}
+
+/* Custom table styling */
+.table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    border-top: none;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr {
+    transition: background-color 0.1s ease;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+/* Alert styling */
+.alert {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Form controls */
+.form-control {
+    border-radius: 6px;
+    padding: 10px 12px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-color: #86b7fe;
+}
+
+/* Input groups */
+.input-group-text {
+    background-color: #e9ecef;
+    border-radius: 6px 0 0 6px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .balance-display {
+        margin-top: 15px;
+        display: block;
+        text-align: center;
+    }
+}
+
+/* Footer styling */
+footer {
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+}

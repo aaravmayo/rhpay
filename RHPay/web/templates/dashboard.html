@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-6">
+        <h1><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h1>
+    </div>
+    <div class="col-md-6 text-md-end">
+        <div class="balance-display">
+            <span class="balance-label">Your Balance:</span>
+            <span class="balance-amount">${{ "%.2f"|format(user.balance) }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Quick Actions -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-3">
+                    <a href="{{ url_for('send_money') }}" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-2"></i>Send Money
+                    </a>
+                    <a href="{{ url_for('request_money') }}" class="btn btn-success">
+                        <i class="fas fa-hand-holding-usd me-2"></i>Request Money
+                    </a>
+                    <a href="{{ url_for('view_requests') }}" class="btn btn-info text-white">
+                        <i class="fas fa-bell me-2"></i>View Requests
+                        {% set incoming_count = pending_requests|selectattr('to', 'equalto', email)|list|length %}
+                        {% if incoming_count > 0 %}
+                        <span class="badge bg-danger">{{ incoming_count }}</span>
+                        {% endif %}
+                    </a>
+                    <a href="{{ url_for('transaction_history') }}" class="btn btn-secondary">
+                        <i class="fas fa-history me-2"></i>Transaction History
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="col-md-8 mb-4">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Activity</h5>
+            </div>
+            <div class="card-body">
+                {% if transactions %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Details</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in transactions %}
+                            <tr>
+                                <td>{{ transaction.date }}</td>
+                                <td>
+                                    {% if transaction.is_outgoing %}
+                                    <span class="badge bg-danger">Sent</span>
+                                    {% else %}
+                                    <span class="badge bg-success">Received</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if transaction.is_outgoing %}
+                                    To: {{ transaction.recipient }}
+                                    {% else %}
+                                    From: {{ transaction.sender }}
+                                    {% endif %}
+                                </td>
+                                <td class="{% if transaction.is_outgoing %}text-danger{% else %}text-success{% endif %}">
+                                    {% if transaction.is_outgoing %}-{% else %}+{% endif %}
+                                    ${{ "%.2f"|format(transaction.amount) }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-end mt-3">
+                    <a href="{{ url_for('transaction_history') }}" class="btn btn-outline-primary btn-sm">
+                        View All Transactions
+                    </a>
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-exchange-alt fa-3x text-muted mb-3"></i>
+                    <h5>No recent transactions</h5>
+                    <p class="text-muted">When you send or receive money, your transactions will appear here.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pending Requests Section -->
+{% if pending_requests %}
+<div class="row">
+    <div class="col-12">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-warning">
+                <h5 class="mb-0 text-dark"><i class="fas fa-bell me-2"></i>Pending Requests</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>User</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for request in pending_requests %}
+                            <tr>
+                                <td>{{ request.date }}</td>
+                                <td>
+                                    {% if request.from == email %}
+                                    <span class="badge bg-primary">Requested</span>
+                                    {% else %}
+                                    <span class="badge bg-warning text-dark">Request from</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if request.from == email %}
+                                    From: {{ request.to }}
+                                    {% else %}
+                                    From: {{ request.from }}
+                                    {% endif %}
+                                </td>
+                                <td>${{ "%.2f"|format(request.amount) }}</td>
+                                <td>
+                                    {% if request.to == email %}
+                                    <a href="{{ url_for('respond_request', request_id=request.id, action='approve') }}" class="btn btn-success btn-sm">
+                                        <i class="fas fa-check me-1"></i>Pay
+                                    </a>
+                                    <a href="{{ url_for('respond_request', request_id=request.id, action='reject') }}" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-times me-1"></i>Decline
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted">Awaiting response</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

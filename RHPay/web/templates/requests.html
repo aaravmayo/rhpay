@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Money Requests{% endblock %}
+
+{% block content %}
+<h1 class="mb-4"><i class="fas fa-bell me-2"></i>Money Requests</h1>
+
+<!-- Incoming Requests -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-warning">
+        <h5 class="mb-0 text-dark"><i class="fas fa-arrow-down me-2"></i>Incoming Requests</h5>
+    </div>
+    <div class="card-body">
+        {% if incoming_requests %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>From</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in incoming_requests %}
+                    <tr>
+                        <td>{{ request.date }}</td>
+                        <td>{{ request.from }}</td>
+                        <td>${{ "%.2f"|format(request.amount) }}</td>
+                        <td>
+                            <a href="{{ url_for('respond_request', request_id=request.id, action='approve') }}" class="btn btn-success btn-sm">
+                                <i class="fas fa-check me-1"></i>Pay
+                            </a>
+                            <a href="{{ url_for('respond_request', request_id=request.id, action='reject') }}" class="btn btn-danger btn-sm">
+                                <i class="fas fa-times me-1"></i>Decline
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-4">
+            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+            <h5>No incoming requests</h5>
+            <p class="text-muted">You don't have any money requests from others.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Outgoing Requests -->
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0"><i class="fas fa-arrow-up me-2"></i>Outgoing Requests</h5>
+    </div>
+    <div class="card-body">
+        {% if outgoing_requests %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>To</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in outgoing_requests %}
+                    <tr>
+                        <td>{{ request.date }}</td>
+                        <td>{{ request.to }}</td>
+                        <td>${{ "%.2f"|format(request.amount) }}</td>
+                        <td>
+                            <span class="badge bg-warning text-dark">Pending</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-4">
+            <i class="fas fa-paper-plane fa-3x text-muted mb-3"></i>
+            <h5>No outgoing requests</h5>
+            <p class="text-muted">You haven't sent any money requests.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a href="{{ url_for('request_money') }}" class="btn btn-primary">
+        <i class="fas fa-plus me-2"></i>New Money Request
+    </a>
+</div>
+{% endblock %}

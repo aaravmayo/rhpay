@@ -1,0 +1,13 @@
+date,sender,recipient,amount,type
+2025-05-15 18:52:31,aarav@rhmail.com,sangeeta@rhmail.com,500.0,request_payment
+2025-05-15 19:00:25,aarav@rhmail.com,apurv@rhmail.com,100.0,payment
+2025-05-15 19:25:39,akshay@rhmail.com,aarav@rhmail.com,10.0,payment
+2025-05-15 19:27:26,aarav@rhmail.com,akshay@rhmail.com,10.0,request_payment
+2025-05-15 20:02:52,vijay@rhmail.com,aarav@rhmail.com,50.0,request_payment
+2025-05-15 20:03:37,aarav@rhmail.com,vijay@rhmail.com,50.0,payment
+2025-05-15 20:59:45,aarav@rhmail.com,apurv@rhmail.com,100.0,request_payment
+2025-05-15 21:00:13,apurv@rhmail.com,aarav@rhmail.com,100.0,payment
+2025-05-15 21:01:06,aarav@rhmail.com,apurv@rhmail.com,100.0,request_payment
+2025-05-15 21:06:24,aarav@rhmail.com,shruti@rhmail.com,100.0,payment
+2025-05-15 21:10:49,aarav@rhmail.com,shruti@rhmail.com,10.0,payment
+2025-05-15 21:12:39,shruti@rhmail.com,aarav@rhmail.com,10.0,payment

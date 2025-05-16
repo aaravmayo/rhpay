@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <div class="card shadow-lg border-0 rounded-lg mt-5">
+            <div class="card-header bg-primary text-white">
+                <h1 class="display-4"><i class="fas fa-wallet me-3"></i>RHPay</h1>
+                <p class="lead">A secure payment system for your family</p>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-user-plus me-2"></i>New User?</h5>
+                                <p class="card-text">Create an account to start sending and receiving money with your family members.</p>
+                                <a href="{{ url_for('register') }}" class="btn btn-primary">Register Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title"><i class="fas fa-sign-in-alt me-2"></i>Existing User?</h5>
+                                <p class="card-text">Log in to your account to access your payment history and wallet.</p>
+                                <a href="{{ url_for('login') }}" class="btn btn-success">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <h4>Features</h4>
+                    <div class="row text-start">
+                        <div class="col-md-4">
+                            <div class="feature-box">
+                                <i class="fas fa-exchange-alt fa-2x text-primary mb-3"></i>
+                                <h5>Easy Transfers</h5>
+                                <p>Send money instantly to any family member.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-box">
+                                <i class="fas fa-history fa-2x text-primary mb-3"></i>
+                                <h5>Transaction History</h5>
+                                <p>Keep track of all your payments and requests.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="feature-box">
+                                <i class="fas fa-shield-alt fa-2x text-primary mb-3"></i>
+                                <h5>Secure</h5>
+                                <p>PIN protection for all transactions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
